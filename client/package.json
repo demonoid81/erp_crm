@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "description": "Web client to ERP System",
   "main": "index.js",
+  "nativescript": {
+    "id": "org.crm_erp.app"
+  },
   "scripts": {
-    "dev": "node dev"
+    "dev-server": "platform=web node build/dev-server.js"
   },
   "author": "DemonoiD",
   "license": "MIT",

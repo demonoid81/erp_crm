@@ -1,0 +1,14 @@
+{
+  "name": "erp_client",
+  "version": "0.0.1",
+  "description": "Web client to ERP System",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node dev"
+  },
+  "author": "DemonoiD",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
+}

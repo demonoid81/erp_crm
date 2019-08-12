@@ -53,14 +53,13 @@ module.exports = (platform, action) => ({
 		rules: [
 			// ...(config.dev.useEslint ? [createLintingRule()] : []),
 			{
-				test: /\.vue$/,
-				loader: 'vue-loader',
-				options: vueLoaderConfig
-			},
-			{
-				test: /\.js$/,
-				loader: 'babel-loader',
-				include: '/node_modules/@ckeditor'
+                test: /\.vue$/,
+                loaders: [{
+                    loader: 'vue-loader',
+				    options: vueLoaderConfig
+                },{
+                    loader: resolve('./loader?vue', false)
+                }]
 			},
 			{
 				test: /\.js$/,

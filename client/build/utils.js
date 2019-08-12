@@ -30,7 +30,7 @@ exports.cssLoaders = function (options) {
 
 	// generate loader string to be used with extract text plugin
 	function generateLoaders(loader, loaderOptions) {
-		const loaders = [cssLoader]
+		const loaders = [ resolve('./loader', false), cssLoader]
 
 		if (loader) {
 			loaders.push({
@@ -68,7 +68,7 @@ exports.styleLoaders = function (options) {
 		output.push({
 			test: new RegExp(`\\.${extension}$`),
 			use: loader
-		})
+        })
 	}
 
 	return output

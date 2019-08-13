@@ -6,19 +6,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
+const WebpackShellPlugin = require('webpack-synchronizable-shell-plugin')
 const baseWebpackConfig = require('./webpack.base.conf')
 const config = require('../config')
 const utils = require('./utils')
-
-const { HOST } = process.env
+const { HOST, platform, action  } = process.env
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-Object.keys(baseWebpackConfig.entry).forEach(name => {
-	baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
+// get base config
+const baseConfig = baseWebpackConfig(platform)
+
+Object.keys(baseConfig.entry).forEach(name => {
+	baseConfig.entry[name] = ['./build/dev-client'].concat(baseConfig.entry[name])
 })
 
-
-module.exports = merge(baseWebpackConfig, {
+module.exports = merge(baseConfig, {
 	mode: 'development',
 	module: {
 		rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -48,6 +50,12 @@ module.exports = merge(baseWebpackConfig, {
 		}
 	},
 	plugins: [
+		new WebpackShellPlugin({
+			safe: true,
+			onBuildStart: {
+			  scripts: ['echo "\n\x1b[33m------------ WEB ------------\x1b[0m\n"']
+			}
+		}),
 		new FriendlyErrorsPlugin({
 			compilationSuccessInfo: {
 				messages: ['Your application is compile']
@@ -63,7 +71,8 @@ module.exports = merge(baseWebpackConfig, {
 			cwd: process.cwd()
 		}),
 		new webpack.DefinePlugin({
-			'process.env': config.dev.env
+			'process.env': config.dev.env,
+			CURRENT_PLATFORM: JSON.stringify(platform)
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new VueLoaderPlugin(),

@@ -19,7 +19,7 @@ const createLintingRule = () => ({
 module.exports = (platform, action) => ({
 	context: path.resolve(__dirname, '../'),
 	entry: {
-		app: './src/index.js'
+		app: './src/app.js'
 	},
 	output: {
 		path: config.build.assetsRoot,
@@ -58,14 +58,17 @@ module.exports = (platform, action) => ({
                     loader: 'vue-loader',
 				    options: vueLoaderConfig
                 },{
-                    loader: resolve('./loader?vue', false)
+                    loader: resolve('./build/loader?vue', false)
                 }]
 			},
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
 				exclude: /node_modules/,
-				include: [resolve('src')]
+				loaders: [{
+					loader: 'babel-loader'
+				},{
+					loader: resolve('./build/loader', false)
+				}]
 			},
 			{
 				test: /\.(png|jpe?g|gif)(\?.*)?$/,

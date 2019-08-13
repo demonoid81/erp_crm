@@ -1,8 +1,8 @@
 const { parse } = require('node-html-parser')
   
 module.exports = function (content) {
-    const target = this.options.target === 'web' ? 'web' : 'native'
-    const notTarget = this.options.target === 'web' ? 'native' : 'web'
+    const target = this.target === 'web' ? 'web' : 'native'
+    const notTarget = this.target === 'web' ? 'native' : 'web'
     if (this.loaders[this.loaderIndex].options === 'vue') {
       const doc = parse(content, {
         script: true,

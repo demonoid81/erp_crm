@@ -1,15 +1,16 @@
 <template web>
-    <div id="app">
-        <router-view/>
+    <div>
+        dashboard
     </div>
 </template>
 
 <template native>
-
+    
 </template>
 
 <script>
 export default {
+    name: 'dashboard'
     
 }
 </script>

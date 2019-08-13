@@ -1,15 +1,16 @@
 <template web>
-    <div id="app">
-        <router-view/>
+    <div>
+        MainSite
     </div>
 </template>
 
 <template native>
-
+    
 </template>
 
 <script>
 export default {
+    name: 'main-form'
     
 }
 </script>

@@ -48,18 +48,31 @@
     "mini-css-extract-plugin": "^0.8.0",
     "nativescript-vue-externals": "^0.2.0",
     "nativescript-vue-target": "^0.1.0",
+    "node-html-parser": "^1.1.16",
+    "node-notifier": "^5.4.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "semver": "^6.3.0",
     "shelljs": "^0.8.3",
     "terser-webpack-plugin": "^1.4.1",
     "url-loader": "^2.1.0",
     "vue-loader": "^15.7.1",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.39.1",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^4.2.1",
-    "webpack-synchronizable-shell-plugin": "0.0.7",
+    "webpack-synchronizable-shell-plugin": "^0.0.7",
     "workbox-webpack-plugin": "^4.3.1"
-  }
+  },
+  "engines": {
+    "node": ">= 10.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

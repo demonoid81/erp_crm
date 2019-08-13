@@ -1,6 +1,5 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { styles } = require('@ckeditor/ckeditor5-dev-utils')
 const config = require('../config')
 const packageConfig = require('../package.json')
 
@@ -30,7 +29,7 @@ exports.cssLoaders = function (options) {
 
 	// generate loader string to be used with extract text plugin
 	function generateLoaders(loader, loaderOptions) {
-		const loaders = [ resolve('./loader', false), cssLoader]
+		const loaders = [ resolve('./build/loader', false), cssLoader]
 
 		if (loader) {
 			loaders.push({

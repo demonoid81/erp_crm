@@ -1,6 +1,6 @@
 <template web>
-    <div id="app">
-        <router-view/>
+    <div>
+        login
     </div>
 </template>
 

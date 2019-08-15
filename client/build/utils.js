@@ -29,7 +29,7 @@ exports.cssLoaders = function (options) {
 
 	// generate loader string to be used with extract text plugin
 	function generateLoaders(loader, loaderOptions) {
-		const loaders = [ resolve('./build/loader', false), cssLoader]
+		const loaders = [ resolve('./loader', false), cssLoader]
 
 		if (loader) {
 			loaders.push({

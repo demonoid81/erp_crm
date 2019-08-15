@@ -50,12 +50,12 @@ module.exports = merge(baseConfig, {
 		}
 	},
 	plugins: [
-		new WebpackShellPlugin({
-			safe: true,
-			onBuildStart: {
-			  scripts: ['echo "\n\x1b[33m------------ WEB ------------\x1b[0m\n"']
-			}
-		}),
+		// new WebpackShellPlugin({
+		// 	safe: true,
+		// 	onBuildStart: {
+		// 	  scripts: ['echo "\n\x1b[33m------------ WEB ------------\x1b[0m\n"']
+		// 	}
+		// }),
 		new FriendlyErrorsPlugin({
 			compilationSuccessInfo: {
 				messages: ['Your application is compile']

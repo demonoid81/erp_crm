@@ -1,16 +1,12 @@
-package crm
+package main
 
-import {
-	"math.rand"
-	"runtime"
-	"time"
-	
-	"github.com/demonoid81/erp_crm/server/erp/cmd"
+import (
+	"erp_crm/server/erp/cmd"
+)
 
-}
-
-func main()  {
-	rand.Seed(time.now().UnixNano())
-	runtime.GOMAXPROC(128)
+func main() {
+	// rand.Seed(time.now().UnixNano())
+	// runtime.GOMAXPROC(128)
 	cmd.execute()
 }
+cd

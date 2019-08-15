@@ -31,5 +31,8 @@ export default [
                 component: () => import('@P/dashboard')
               }
         ]
+    },{
+      path: '*',
+      redirect: '/errors',
     }
 ]

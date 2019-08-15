@@ -1,0 +1,37 @@
+{
+	"root": true,
+	"parserOptions": {
+		"parser": "babel-eslint",
+		"ecmaVersion": 2017,
+		"sourceType": "module"
+	},
+	"extends": [
+		"plugin:vue/essential",
+		"airbnb-base"
+	],
+	"env": {
+		"browser": true
+	},
+	"rules": {
+		"indent": ["error", "tab"],
+		"max-len": ["error", {
+			"code": 250,
+			"tabWidth": 4,
+			"ignoreComments": true,
+			"ignoreTrailingComments": true,
+			"ignoreStrings": true,
+			"ignoreTemplateLiterals": true
+		}],
+		"no-tabs": ["error", { "allowIndentationTabs": true }],
+		"arrow-parens": [2, "as-needed"],
+		"generator-star-spacing": "off",
+		"no-debugger": "off",
+		"vue/no-parsing-error": [ 2,
+			{ "x-invalid-end-tag": false}
+		],
+		"no-undef": "off",
+		"camelcase": "off",
+		"semi": ["error", "never"],
+		"comma-dangle": ["error", "never"]
+	}
+}

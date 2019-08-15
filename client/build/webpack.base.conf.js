@@ -5,6 +5,10 @@ const vueLoaderConfig = require('./vue-loader.conf')
 
 const resolve = (dir) => path.join(__dirname, '..', dir)
 
+const resolver = function (p, root = true) {
+    return path.resolve(root ? process.cwd() : __dirname, p)
+}
+
 const createLintingRule = () => ({
 	test: /\.(js|vue)$/,
 	loader: 'eslint-loader',
@@ -58,7 +62,7 @@ module.exports = (platform, action) => ({
                     loader: 'vue-loader',
 				    options: vueLoaderConfig
                 },{
-                    loader: resolve('./build/loader?vue', false)
+                    loader: resolver('./loader?vue', false)
                 }]
 			},
 			{
@@ -67,7 +71,7 @@ module.exports = (platform, action) => ({
 				loaders: [{
 					loader: 'babel-loader'
 				},{
-					loader: resolve('./build/loader', false)
+					loader: resolver('./loader', false)
 				}]
 			},
 			{

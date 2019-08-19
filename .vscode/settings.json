@@ -17,5 +17,6 @@
     "files.autoSave": "onFocusChange",
     "editor.fontSize": 12,
     "go.inferGopath": true,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "cSpell.language": ",ru"
 }

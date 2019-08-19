@@ -1,0 +1,33 @@
+type person {
+    uid: ID!
+    name: String!
+    country: String! # Ссылка на страну
+    phone: String!
+    token: String! 
+}
+
+type identifiedPerson {
+    idented: Boolean!
+    hasPassword: Boolean!
+    authKey: String! # Храним в редисе одну минуту
+}
+
+input reqAuthPerson {
+    authKey: String
+    key: String
+    password: String
+}
+
+type Query {
+    identifyPersonByPhone(phone: String!): identifiedPerson
+    identifyPersonByName(name: String!): identifiedPerson
+    authPerson(params: reqAuthPerson): person
+}
+
+type Mutation {
+    updatePerson(params: reqAuthPerson): person
+}
+
+type Subscription {
+    updatePerson : person!
+}

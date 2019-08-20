@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routers'
+import store from '../store'
 import { getToken, setTitle } from '@/libs/utils'
 
 Vue.use(Router)
@@ -16,7 +17,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-	const token = window.Store.state.token
+	const token = store.state.token
 	if (!token && to.name !== LOGIN_PAGE_NAME) {
 		next({name: LOGIN_PAGE_NAME})
 	} else if (!token && to.name === LOGIN_PAGE_NAME) {

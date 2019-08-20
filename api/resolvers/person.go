@@ -40,6 +40,13 @@ func RandomString(n int) string {
 	return string(b)
 }
 
+type Claims struct {
+	Paiload     string `json:"paiload"`
+	Idented     bool   `json:idented`
+	HasPassword bool   `json:hasPassword`
+	jwt.StandardClaims
+}
+
 var HasPassword = true
 var AuthKey = "123456789"
 
@@ -81,21 +88,21 @@ func (r *queryResolve) IdentifyPersonByPhone(ctx context.Context, phone string) 
 
 	// * ключ запроса
 	key := NewSHA1Hash()
-	// * Создаем новый токен
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256,
-		// * Устанавливаем набор параметров для токена
-		jwt.MapClaims{
-			"phone": phone,
-			// * срок жизни токена 1 минута
-			"exp": time.Now().Add(time.Minute * 1).Unix(),
+	claims := Claims{
+		phone,
+		false,
+		false,
+		jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Minute).Unix(),
 		},
-	)
+	}
+	// * Создаем новый токен
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	// * Подписываем токен секретным ключем
-	tokenString, _ := token.SignedString(key)
-
+	tokenString, _ := token.SignedString([]byte(key))
 	_, err := r.redisClient.Pipelined(func(c redis.Pipeliner) error {
-		c.Set(tokenString, key, 6000000)
+		c.Set(tokenString, key, time.Now().Add(time.Minute).Sub(time.Now()))
 		return nil
 	})
 

@@ -20,6 +20,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import gql from 'graphql-tag'
+
+const IDENTIFY_PERSON_BY_PHONE = gql`
+    query ($phone: String!) {
+        identifyPersonByPhone(phone: $phone) {
+            idented
+            hasPassword
+            authToken
+        }
+    }
+`
+
 export default {
     name: 'login-form',
     components: {
@@ -40,11 +53,16 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['identifyPersonByPhone']),
         buttonAction() {
             switch (this.action) {
                 case 'verifyPerson': // проверям наличие пользователя
-                    this.showPasswordInput = true
-                    this.action = 'verifyPassword'
+                    this.identifyPersonByPhone('123456')
+                        .then(data=> {
+                            this.showPasswordInput = true
+                            this.action = 'verifyPassword'
+                        })
+                        .catch()
                     break;
                 case 'verifyPassword': // верифицируем пароль
                     this.showPasswordConfirmationInput = true

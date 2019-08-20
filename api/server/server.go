@@ -13,6 +13,8 @@ import (
 	"github.com/99designs/gqlgen/handler"
 	"github.com/go-redis/redis"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/websocket"
+	"github.com/rs/cors"
 )
 
 type Cache struct {
@@ -48,10 +50,23 @@ func Exec() {
 	router.HandleFunc("/", handler.Playground("erp_crm", "/api"))
 	router.HandleFunc("/api", handler.GraphQL(
 		generated.NewExecutableSchema(resolvers.RootResolvers(rClient, dClient)),
-		handler.EnablePersistedQueryCache(cache)))
+		handler.EnablePersistedQueryCache(cache)),
+	)
+
+	router.HandleFunc("/ws", handler.GraphQL(
+		generated.NewExecutableSchema(resolvers.RootResolvers(rClient, dClient)),
+		handler.WebsocketUpgrader(websocket.Upgrader{
+			CheckOrigin: func(r *http.Request) bool {
+				return true
+			},
+			HandshakeTimeout: 5 * time.Second,
+		})),
+	)
+
+	handler := cors.AllowAll().Handler(router)
 
 	srv := &http.Server{
-		Handler:      router,
+		Handler:      handler,
 		Addr:         ":8001",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,

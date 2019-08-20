@@ -14,8 +14,8 @@ const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('token') || ''
     },
-    getters,
-    mutations,
+    getters: {},
+    mutations: {},
     actions,
     modules: {}
 })

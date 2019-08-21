@@ -4,11 +4,14 @@
         <div>
             <input v-model="person" :placeholder="$t('LOGIN')"/>
         </div>
+        <div>
+            <tel-input v-model="phone"></tel-input>
+        </div>
+        <slide-up-down :active="showSecurityCode">
+            <security-code v-model="code"/>
+        </slide-up-down>
         <slide-up-down :active="showPasswordInput">
             <input v-model="password" :placeholder="$t('PASSWORD')"/>
-        </slide-up-down>
-        <slide-up-down :active="showPasswordConfirmationInput">
-            <input v-model="password" :placeholder="$t('PASSWORD_CONFIRMATION')"/>
         </slide-up-down>
         <button @click='buttonAction' :disabled="isButtonDisabled" >{{$t(buttonLabel)}}</button>
         <a>{{$t(questionLabel)}}</a>
@@ -21,31 +24,24 @@
 
 <script>
 import { mapActions } from 'vuex'
-import gql from 'graphql-tag'
-
-const IDENTIFY_PERSON_BY_PHONE = gql`
-    query ($phone: String!) {
-        identifyPersonByPhone(phone: $phone) {
-            idented
-            hasPassword
-            authToken
-        }
-    }
-`
 
 export default {
     name: 'login-form',
     components: {
-        SlideUpDown: () => import('../slideUpDown')
+        SlideUpDown: () => import('../slideUpDown'),
+        SecurityCode: () => import('../securityCode'),
+        TelInput: () => import('../telInput')
     },
     data() {
         return {
             person: '',
+            phone: '',
             password: '',
-            passwordConfirmation: '',
+            code: '',
+            personIdentified: false,
             pageStatus: 'LOGIN_PERSON', // 'REGISTER_PERSON'
             showPasswordInput: false,
-            showPasswordConfirmationInput: false,
+            showSecurityCode: true,
             action: 'verifyPerson',
             actions: [
                 {},{},{}
@@ -59,13 +55,14 @@ export default {
                 case 'verifyPerson': // проверям наличие пользователя
                     this.identifyPersonByPhone('123456')
                         .then(data=> {
+                            
                             this.showPasswordInput = true
                             this.action = 'verifyPassword'
                         })
                         .catch()
                     break;
                 case 'verifyPassword': // верифицируем пароль
-                    this.showPasswordConfirmationInput = true
+                    this.showSecurityCode = true
                     break;                    
                 case 'loginPerson': // логиним пользователя
                     

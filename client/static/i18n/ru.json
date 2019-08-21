@@ -1,7 +1,6 @@
 {
     "LOGIN": "Логин",
     "PASSWORD": "Пароль",
-    "PASSWORD_CONFIRMATION": "Подтверждения пароля",
     "LOGIN_PERSON": "Авторизация пользователя",
     "REGISTER_PERSON": "Регистрация пользователя",
     "VERIFY": "Проверить",

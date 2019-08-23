@@ -7,6 +7,7 @@ import (
 	"context"
 	"erp_crm/api/models"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 	"sync"
@@ -41,6 +42,7 @@ type ResolverRoot interface {
 }
 
 type DirectiveRoot struct {
+	Auth func(ctx context.Context, obj interface{}, next graphql.Resolver) (res interface{}, err error)
 }
 
 type ComplexityRoot struct {
@@ -302,7 +304,9 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var parsedSchema = gqlparser.MustLoadSchema(
-	&ast.Source{Name: "schema/person.graphql", Input: `type person {
+	&ast.Source{Name: "schema/person.graphql", Input: `directive @auth on FIELD_DEFINITION
+
+type person {
     uid: ID!
     name: String!
     country: String! # Ссылка на страну
@@ -322,10 +326,12 @@ input reqAuthPerson {
     password: String
 }
 
+# при идентификации выдается временый ключ его срок действия 1 минута
+# если не получаем дальнейших данных, то придеться идентифицироваться сначала
 type Query {
     identifyPersonByPhone(phone: String!): identifiedPerson
     identifyPersonByName(name: String!): identifiedPerson
-    authPerson(params: reqAuthPerson): person
+    authPerson(params: reqAuthPerson): person @auth
 }
 
 type Mutation {
@@ -595,8 +601,24 @@ func (ec *executionContext) _Query_authPerson(ctx context.Context, field graphql
 	rctx.Args = args
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().AuthPerson(rctx, args["params"].(*models.ReqAuthPerson))
+		directive0 := func(rctx context.Context) (interface{}, error) {
+			ctx = rctx // use context from middleware stack in children
+			return ec.resolvers.Query().AuthPerson(rctx, args["params"].(*models.ReqAuthPerson))
+		}
+		directive1 := func(ctx context.Context) (interface{}, error) {
+			return ec.directives.Auth(ctx, nil, directive0)
+		}
+
+		tmp, err := directive1(rctx)
+		if err != nil {
+			return nil, err
+		}
+		if data, ok := tmp.(*models.Person); ok {
+			return data, nil
+		} else if tmp == nil {
+			return nil, nil
+		}
+		return nil, fmt.Errorf(`unexpected type %T from directive, should be *erp_crm/api/models.Person`, tmp)
 	})
 	if err != nil {
 		ec.Error(ctx, err)

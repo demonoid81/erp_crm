@@ -40,6 +40,15 @@ func (c *Cache) Get(ctx context.Context, hash string) (string, bool) {
 	return s, true
 }
 
+func authMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
+		header := request.Header.Get("Authorization")
+		if header == "" {
+			next.ServeHTTP(response, request)
+		}
+		
+}
+
 func Exec() {
 	rClient := storages.GetRedisClient()
 	dClient := storages.GetDgraphClient()

@@ -1,8 +1,11 @@
 package resolvers
 
 import (
+	"context"
 	"erp_crm/api/generated"
 	"erp_crm/api/storages"
+
+	"github.com/99designs/gqlgen/graphql"
 )
 
 func RootResolvers(redisClient *storages.RedisClient, dgraphClient *storages.DgraphClient) generated.Config {
@@ -12,9 +15,10 @@ func RootResolvers(redisClient *storages.RedisClient, dgraphClient *storages.Dgr
 			dgraphClient: dgraphClient,
 		},
 	}
-	// c.Directives.User = func(ctx context.Context, obj interface{}, next graphql.Resolver, id int) (interface{}, error) {
-	// 	return next(context.WithValue(ctx, "userId", id))
-	// }
+	c.Directives.Auth = func(ctx context.Context, obj interface{}, next graphql.Resolver) (interface{}, error) {
+
+		return next(context.WithValue(ctx, "userId", id))
+	}
 	return c
 
 }

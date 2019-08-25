@@ -4,9 +4,9 @@
     </div>
 </template>
 
-<template native>
-    
-</template>
+<!--<template native>-->
+<!--    -->
+<!--</template>-->
 
 <script>
 export default {
@@ -19,6 +19,6 @@ export default {
 
 </style>
 
-<style lang="less" native>
+<!--<style lang="less" native>-->
 
-</style>
+<!--</style>-->

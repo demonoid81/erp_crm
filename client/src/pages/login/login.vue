@@ -1,22 +1,31 @@
 <template web>
     <div class="login">
         <div class="login-con">
-            <login-form/>
+            <login-form @on-success-valid="handleSubmit"/>
         </div>
     </div>
 </template>
 
-<template native>
+<!--<template native>-->
 
-</template>
+<!--</template>-->
 
 <script>
+    import {mapMutations} from 'vuex'
 export default {
     name: 'login',
     components: {
         LoginForm: () => import('../../components/loginForm')
+    },
+    methods: {
+        ...mapMutations(['ADD_TOKEN']),
+        handleSubmit () {
+            this.ADD_TOKEN('123456')
+            this.$router.push({
+                name: this.$config.mainPage
+            })
+        }
     }
-
 }
 </script>
 
@@ -36,9 +45,8 @@ export default {
             width: 300px;
         }
     }
-
 </style>
 
-<style lang="less" native>
+<!--<style lang="less" native>-->
 
-</style>
+<!--</style>-->

@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
 	title: 'ERP_CRM',
 	cookieExpires: 1,
-
+	mainPage: 'home',
 	dev: {
 		env: require('./dev.env'),
 		// Paths

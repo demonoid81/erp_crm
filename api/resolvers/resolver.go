@@ -15,9 +15,9 @@ func RootResolvers(redisClient *storages.RedisClient, dgraphClient *storages.Dgr
 			dgraphClient: dgraphClient,
 		},
 	}
-	c.Directives.Auth = func(ctx context.Context, obj interface{}, next graphql.Resolver) (interface{}, error) {
+	c.Directives.Auth = func(ctx context.Context, obj interface{}, next graphql.Resolver) (res interface{}, err error) {
 
-		return next(context.WithValue(ctx, "userId", id))
+		return nil, nil
 	}
 	return c
 

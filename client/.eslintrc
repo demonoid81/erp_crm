@@ -9,6 +9,13 @@
 		"plugin:vue/essential",
 		"airbnb-base"
 	],
+	"settings": {
+		"import/resolver" : {
+			"webpack": {
+				"config": "./build/webpack.base.conf.js"
+			}
+		}
+	},
 	"env": {
 		"browser": true
 	},

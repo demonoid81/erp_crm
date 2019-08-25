@@ -63,6 +63,7 @@ export default {
                     break;
                 case 'verifyPassword': // верифицируем пароль
                     this.showSecurityCode = true
+                    this.$emit('on-success-valid', true)
                     break;                    
                 case 'loginPerson': // логиним пользователя
                     
@@ -81,7 +82,7 @@ export default {
                 case 'verifyPerson':
                     return this.person.length < 6
                 default:
-                    return true
+                    return false
             }
         },
         buttonLabel() {

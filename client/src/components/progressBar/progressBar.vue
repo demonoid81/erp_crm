@@ -43,7 +43,7 @@ export default {
 		},
 		progress() {
 			if (inBrowser) {
-				return window.VueProgressBarEventBus.PROGRESS_BAR
+				return window.ProgressBarEventBus.PROGRESS_BAR
 			}
 			return {
 				percent: 0,

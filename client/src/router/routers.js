@@ -8,7 +8,7 @@ export default [
           title: 'Login - Вход',
           hideInMenu: true
         },
-        component: () => import('@/pages/login/')
+        component: () => import('@P/login/')
     },{
         path: '/',
         name: '_home',

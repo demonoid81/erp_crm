@@ -11,8 +11,11 @@ import VueApollo from 'vue-apollo'
 import store from './store'
 import router from './router'
 import App from './app.vue'
+import config from '../config'
 import { createUploadLink, customFetch } from './libs/upload-client'
 import ProgressBar from './components/progressBar'
+
+Vue.prototype.$config = config
 
 const progressBarOptions = {
 	color: '#1d71b8',
@@ -86,7 +89,7 @@ export const apolloClient = new ApolloClient({
 	connectToDevTools: true,
 })
 
-Vue.use(ProgressBar, { progressBarOptions })
+Vue.use(ProgressBar, progressBarOptions)
 Vue.use(VueApollo)
 
 const apolloProvider = new VueApollo({

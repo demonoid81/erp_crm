@@ -38,7 +38,6 @@ export default {
 	},
 	methods: {
         update () {
-            if (isServer) return;
             if (this.popper) {
                 this.$nextTick(() => {
                     this.popper.update();
@@ -98,6 +97,10 @@ export default {
             return transferIndex;
         },				
 	},
+    created () {
+        this.$on('on-update-popper', this.update);
+        this.$on('on-destroy-popper', this.destroy);
+    },
 	beforeDestroy () {
         if (this.popper) {
             this.popper.destroy();

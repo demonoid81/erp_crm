@@ -18,12 +18,19 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 	const token = store.state.token
+	console.log('token', token)
 	if (!token && to.name !== LOGIN_PAGE_NAME) {
+		console.log('login')
 		next({name: LOGIN_PAGE_NAME})
 	} else if (!token && to.name === LOGIN_PAGE_NAME) {
+		console.log('push')
 		next()
 	} else if (token && to.name === LOGIN_PAGE_NAME) {
+		console.log('pash')
 		next({name: 'dashboard'})
+	} else {
+		// todo проверка на доступ по роли
+		next()
 	}
 })
 

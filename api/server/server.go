@@ -46,7 +46,7 @@ func authMiddleware(next http.Handler) http.Handler {
 		if header == "" {
 			next.ServeHTTP(response, request)
 		}
-		
+	})
 }
 
 func Exec() {

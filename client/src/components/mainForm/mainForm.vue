@@ -8,9 +8,10 @@
 				@toggle-collapse="onToggleCollapse"
 				@item-click="onItemClick"
 				style="flex-grow: 0">
-			<template slot="header">
+			<template #header="{ isCollapsed }">
 				<div class="menu">
-					<i class="fa fa-home menu-home-icon"></i>
+					<i class="menu-icon fa fa-home"></i>
+					<span v-if="!isCollapsed" class="menu-text">Главная</span>
 				</div>
 			</template>
 		</sidebar-menu>
@@ -20,9 +21,7 @@
 			<tabs-nav class="main-content tag-nav-wrapper"/>
 			<router-view/>
 		</div>
-		<div style="width: 50px; height: 100%; background-color: #2a2a2e">
-			were
-		</div>
+		<functional-menu/>
 	</div>
 </template>
 
@@ -32,10 +31,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import FunctionalMenu from '@C/functionalMenu/functionalMenu'
 
 export default {
 	name: 'main-form',
 	components: {
+		FunctionalMenu,
 		TabsNav: () => import('../tabsNav'),
 		SidebarMenu: () => import('../sidebarMenu')
 	},
@@ -76,6 +77,35 @@ export default {
 				padding: 0;
 				height: 41px;
 			}
+		}
+	}
+	.menu {
+		position: relative;
+		display: block;
+		font-size: 16px;
+		font-weight: 400;
+		padding: 5px 10px;
+		line-height: 30px;
+		text-decoration: none;
+		z-index: 20;
+		transition: 0.3s all;
+		&-icon {
+			float: left;
+			margin-right: 10px;
+			padding: 6px;
+			height: 30px;
+			line-height: 30px;
+			width: 30px;
+			text-align: center;
+			box-sizing: border-box;
+			border-radius: 3px;
+			background-color: #191919;
+			color: #fff;
+		}
+		&-text {
+			display: block;
+			white-space: nowrap;
+			color: white;
 		}
 	}
 </style>

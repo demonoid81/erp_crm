@@ -3,7 +3,7 @@
          :class="[!isCollapsed ? 'vsm_expanded' : 'vsm_collapsed', theme ? `vsm_${theme}` : '', rtl ? 'vsm_rtl' : '']"
          :style="[relative ? {'position' : 'relative', 'height' : '100%'} : '', {'width': sidebarWidth}]"
          @mouseleave="onMouseLeave">
-        <slot name="header"/>
+        <slot name="header" :isCollapsed="isCollapsed"/>
         <div class="vsm--list">
             <item v-for="(item, index) in menu"
                   :key="index"

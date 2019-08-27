@@ -47,41 +47,35 @@
             </router-link>
         </template>
         <template v-else>
-            <a
-                    :class="itemLinkClass"
-                    :href="itemLinkHref"
-                    :disabled="item.disabled"
-                    :tabindex="item.disabled ? -1 : undefined"
-                    v-bind="item.attributes"
-                    @click="clickEvent"
-            >
+            <a :class="itemLinkClass"
+               :href="itemLinkHref"
+               :disabled="item.disabled"
+               :tabindex="item.disabled ? -1 : undefined"
+               v-bind="item.attributes"
+               @click="clickEvent">
                 <template v-if="item.icon">
                     <i v-if="typeof item.icon === 'string' || (item.icon instanceof String)" class="vsm--icon" :class="item.icon"></i>
-                    <component
-                            :is="item.icon.element ? item.icon.element : 'i'"
-                            v-else
-                            class="vsm--icon"
-                            :class="item.icon.class"
-                            v-bind="item.icon.attributes"
-                    >
+                    <component :is="item.icon.element ? item.icon.element : 'i'"
+                               v-else
+                               class="vsm--icon"
+                               :class="item.icon.class"
+                               v-bind="item.icon.attributes">
                         {{ item.icon.text }}
                     </component>
                 </template>
                 <template v-if="(isCollapsed && !isFirstLevel) || !isCollapsed || mobileItem">
-                    <component
-                            :is="item.badge.element ? item.badge.element : 'span'"
-                            v-if="item.badge"
-                            :style="[rtl ? (item.children ? {'margin-left' : '30px'} : '') : (item.children ? {'margin-right' : '30px'} : '')]"
-                            class="vsm--badge"
-                            :class="item.badge.class"
-                            v-bind="item.badge.attributes"
-                    >{{ item.badge.text }}</component>
+                    <component :is="item.badge.element ? item.badge.element : 'span'"
+                               v-if="item.badge"
+                               :style="[rtl ? (item.children ? {'margin-left' : '30px'} : '') : (item.children ? {'margin-right' : '30px'} : '')]"
+                               class="vsm--badge"
+                               :class="item.badge.class"
+                               v-bind="item.badge.attributes">
+                        {{ item.badge.text }}
+                    </component>
                     <span class="vsm--title">{{ title }}</span>
-                    <div
-                            v-if="item.children"
-                            class="vsm--arrow"
-                            :class="[{'vsm--arrow_open' : show}, {'vsm--arrow_slot' : $slots['dropdown-icon']}]"
-                    >
+                    <div v-if="item.children"
+                         class="vsm--arrow"
+                         :class="[{'vsm--arrow_open' : show}, {'vsm--arrow_slot' : $slots['dropdown-icon']}]">
                         <slot name="dropdown-icon" />
                     </div>
                 </template>
@@ -89,27 +83,17 @@
         </template>
         <template v-if="item.children">
             <template v-if="(isCollapsed && !isFirstLevel) || !isCollapsed">
-                <transition
-                        name="expand"
-                        @enter="expandEnter"
-                        @afterEnter="expandAfterEnter"
-                        @beforeLeave="expandBeforeLeave"
-                >
-                    <div
-                            v-if="show"
-                            class="vsm--dropdown"
-                    >
-                        <listItem
-                                :items="item.children"
-                                :level="level+1"
-                                :show-child="showChild"
-                                :rtl="rtl"
-                                :is-collapsed="isCollapsed"
-                        >
-                            <slot
-                                    slot="dropdown-icon"
-                                    name="dropdown-icon"
-                            />
+                <transition name="expand"
+                            @enter="expandEnter"
+                            @afterEnter="expandAfterEnter"
+                            @beforeLeave="expandBeforeLeave">
+                    <div v-if="show" class="vsm--dropdown">
+                        <listItem :items="item.children"
+                                  :level="level+1"
+                                  :show-child="showChild"
+                                  :rtl="rtl"
+                                  :is-collapsed="isCollapsed">
+                            <slot   slot="dropdown-icon" name="dropdown-icon"/>
                         </listItem>
                     </div>
                 </transition>

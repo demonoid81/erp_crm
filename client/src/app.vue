@@ -1,7 +1,6 @@
 <template web>
 	<div id="app">
 		<router-view/>
-		<progress-bar/>
 	</div>
 </template>
 

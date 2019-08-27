@@ -1,38 +1,22 @@
-import MainForm from '@C/mainForm'
+import dashboard from './dashboard'
+import configs from './configs'
+import settings from './settings'
 
 export default [
-    {
-        path: '/login',
-        name: 'login',
-        meta: {
-          title: 'Login - Вход',
-          hideInMenu: true
-        },
-        component: () => import('@P/login/')
-    },{
-        path: '/',
-        name: '_home',
-        redirect: '/home',
-        component: MainForm,
-        meta: {
-          hideInMenu: true,
-          notCache: true
-        },
-        children: [
-            {
-                path: '/',
-                name: 'home',
-                meta: {
-                  hideInMenu: true,
-                  title: 'Главная',
-                  notCache: true,
-                  icon: 'md-home'
-                },
-                component: () => import('@P/dashboard')
-              }
-        ]
-    },{
-      path: '*',
-      redirect: '/errors',
-    }
+	{
+		path: '/login',
+		name: 'login',
+		meta: {
+			title: 'Login - Вход',
+			hideInMenu: true
+		},
+		component: () => import('@P/login/')
+	},
+	dashboard,
+	configs,
+	settings,
+	{
+		path: '*',
+		redirect: '/errors'
+	}
 ]

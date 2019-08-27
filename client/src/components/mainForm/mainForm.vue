@@ -1,23 +1,29 @@
 <template web>
-    <div class="main">
+	<div class="main">
 
-            <sidebar-menu
-                :menu="menu"
-                :collapsed="collapsed"
-                :show-one-child="true"
-                @toggle-collapse="onToggleCollapse"
-                @item-click="onItemClick"
-                style="flex-grow: 0"
-            />
+		<sidebar-menu
+				:menu="menu"
+				:collapsed="collapsed"
+				:show-one-child="true"
+				@toggle-collapse="onToggleCollapse"
+				@item-click="onItemClick"
+				style="flex-grow: 0">
+			<template slot="header">
+				<div class="menu">
+					<i class="fa fa-home menu-home-icon"></i>
+				</div>
+			</template>
+		</sidebar-menu>
 
-        <div class="main-content">
-            <tags-nav class="main-content tag-nav-wrapper"/>
-            <router-view/>
-        </div>
-        <div style="width: 50px; height: 100%; background-color: #2a2a2e">
-            were
-        </div>
-    </div>
+
+		<div class="main-content">
+			<tabs-nav class="main-content tag-nav-wrapper"/>
+			<router-view/>
+		</div>
+		<div style="width: 50px; height: 100%; background-color: #2a2a2e">
+			were
+		</div>
+	</div>
 </template>
 
 <!--<template native>-->
@@ -25,112 +31,17 @@
 <!--</template>-->
 
 <script>
-
-const separator = {
-	template: '<hr style="border-color: rgba(0, 0, 0, 0.1); margin: 20px;">'
-}
+import { mapGetters } from 'vuex'
 
 export default {
 	name: 'main-form',
 	components: {
-		TagsNav: () => import('../tagsNav'),
+		TabsNav: () => import('../tabsNav'),
 		SidebarMenu: () => import('../sidebarMenu')
 	},
 	data() {
 		return {
-			collapsed: false,
-			menu: [
-				{
-					href: '/',
-					title: 'Installation',
-					icon: 'fa fa-download'
-				},
-				{
-					title: 'Basic Usage',
-					icon: 'fa fa-code'
-				},
-				{
-					title: 'Props',
-					icon: 'fa fa-cogs'
-				},
-				{
-					title: 'Events',
-					icon: 'fa fa-bell'
-				},
-				{
-					title: 'Styling',
-					icon: 'fa fa-palette'
-				},
-				{
-					component: separator
-				},
-				{
-					title: 'Disabled page',
-					icon: 'fa fa-lock',
-					disabled: true
-				},
-				{
-					title: 'Badge',
-					icon: 'fa fa-cog',
-					badge: {
-						text: 'new',
-						class: 'vsm--badge_default'
-					}
-				},
-				{
-					title: 'Dropdown Page',
-					icon: 'fa fa-list-ul',
-					child: [
-						{
-							title: 'Sub Page 01',
-							icon: 'fa fa-file-alt'
-						},
-						{
-							title: 'Sub Page 02',
-							icon: 'fa fa-file-alt'
-						}
-					]
-				},
-				{
-					title: 'Multiple Level',
-					icon: 'fa fa-list-alt',
-					child: [
-						{
-							title: 'page'
-						},
-						{
-							title: 'Level 2 ',
-							child: [
-								{
-									title: 'page'
-								},
-								{
-									title: 'Page'
-								}
-							]
-						},
-						{
-							title: 'Page'
-						},
-						{
-							title: 'Another Level 2',
-							child: [
-								{
-									title: 'Level 3',
-									child: [
-										{
-											title: 'Page'
-										},
-										{
-											title: 'Page'
-										}
-									]
-								}
-							]
-						}
-					]
-				}
-			]
+			collapsed: false
 		}
 	},
 	methods: {
@@ -143,26 +54,30 @@ export default {
 			// console.log(event)
 			// console.log(item)
 		}
+	},
+	computed: {
+		...mapGetters(['menuList']),
+		menu() {
+			console.log(this.menuList)
+			return this.menuList
+		}
 	}
 }
 </script>
 
 <style lang="less" web>
-    .main {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        &-content {
-            flex-grow: 1;
-            .tag-nav-wrapper{
-                padding: 0;
-                height:40px;
-                background:#F0F0F0;
-            }
-        }
-    }
-
-
+	.main {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		&-content {
+			flex-grow: 1;
+			.tag-nav-wrapper{
+				padding: 0;
+				height: 41px;
+			}
+		}
+	}
 </style>
 
 <!--<style lang="less" native>-->

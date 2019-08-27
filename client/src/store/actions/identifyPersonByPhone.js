@@ -12,10 +12,10 @@ const IDENTIFY_PERSON_BY_PHONE = gql`
 `
 
 export default (context, phone) => apolloClient.query({
-    query: IDENTIFY_PERSON_BY_PHONE,
-    variables: {
-        phone
-    }
+	query: IDENTIFY_PERSON_BY_PHONE,
+	variables: {
+		phone
+	}
 })
-    .then(result => (result.data.identifyPersonByPhone))
-    .catch(err => {console.log(err)})
+	.then(result => (result.data.identifyPersonByPhone))
+	.catch(err => { console.log(err) })

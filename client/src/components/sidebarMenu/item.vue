@@ -1,44 +1,27 @@
 <template>
-    <component
-            :is="item.component"
-            v-if="item.component && !isItemHidden"
-    />
-    <div
-            v-else-if="item.header && !isItemHidden"
-            class="vsm--header"
-            :class="item.class"
-            v-bind="item.attributes"
-    >
-        {{ item.title }}
+    <component :is="item.component" v-if="item.component && !isItemHidden"/>
+    <div v-else-if="item.header && !isItemHidden" class="vsm--header" :class="item.class" v-bind="item.attributes">
+        {{ title }}
     </div>
-    <div
-            v-else-if="!isItemHidden"
-            class="vsm--item"
-            :class="[{'vsm--item_open' : show}]"
-            @mouseenter="mouseEnterEvent"
-    >
+    <div v-else-if="!isItemHidden"
+         class="vsm--item"
+         :class="[{'vsm--item_open' : show}]"
+         @mouseenter="mouseEnterEvent">
         <template v-if="isRouterLink">
-            <router-link
-                    :class="itemLinkClass"
-                    :to="itemLinkHref"
-                    :disabled="item.disabled"
-                    :tabindex="item.disabled ? -1 : undefined"
-                    v-bind="item.attributes"
-                    @click.native="clickEvent"
-            >
+            <router-link :class="itemLinkClass"
+                         :to="itemLinkHref"
+                         :disabled="item.disabled"
+                         :tabindex="item.disabled ? -1 : undefined"
+                         v-bind="item.attributes"
+                         @click.native="clickEvent">
                 <template v-if="item.icon">
-                    <i
-                            v-if="typeof item.icon === 'string' || (item.icon instanceof String)"
-                            class="vsm--icon"
-                            :class="item.icon"
-                    />
+                    <i v-if="typeof item.icon === 'string' || (item.icon instanceof String)" class="vsm--icon" :class="item.icon"></i>
                     <component
                             :is="item.icon.element ? item.icon.element : 'i'"
                             v-else
                             class="vsm--icon"
                             :class="item.icon.class"
-                            v-bind="item.icon.attributes"
-                    >
+                            v-bind="item.icon.attributes">
                         {{ item.icon.text }}
                     </component>
                 </template>
@@ -46,16 +29,15 @@
                     <component
                             :is="item.badge.element ? item.badge.element : 'span'"
                             v-if="item.badge"
-                            :style="[rtl ? (item.child ? {'margin-left' : '30px'} : '') : (item.child ? {'margin-right' : '30px'} : '')]"
+                            :style="[rtl ? (item.children ? {'margin-left' : '30px'} : '') : (item.child ? {'margin-right' : '30px'} : '')]"
                             class="vsm--badge"
                             :class="item.badge.class"
-                            v-bind="item.badge.attributes"
-                    >
+                            v-bind="item.badge.attributes">
                         {{ item.badge.text }}
                     </component>
-                    <span class="vsm--title">{{ item.title }}</span>
+                    <span class="vsm--title">{{ title }}</span>
                     <div
-                            v-if="item.child"
+                            v-if="item.children"
                             class="vsm--arrow"
                             :class="[{'vsm--arrow_open' : show}, {'vsm--arrow_slot' : $slots['dropdown-icon']}]"
                     >
@@ -74,11 +56,7 @@
                     @click="clickEvent"
             >
                 <template v-if="item.icon">
-                    <i
-                            v-if="typeof item.icon === 'string' || (item.icon instanceof String)"
-                            class="vsm--icon"
-                            :class="item.icon"
-                    />
+                    <i v-if="typeof item.icon === 'string' || (item.icon instanceof String)" class="vsm--icon" :class="item.icon"></i>
                     <component
                             :is="item.icon.element ? item.icon.element : 'i'"
                             v-else
@@ -93,14 +71,14 @@
                     <component
                             :is="item.badge.element ? item.badge.element : 'span'"
                             v-if="item.badge"
-                            :style="[rtl ? (item.child ? {'margin-left' : '30px'} : '') : (item.child ? {'margin-right' : '30px'} : '')]"
+                            :style="[rtl ? (item.children ? {'margin-left' : '30px'} : '') : (item.children ? {'margin-right' : '30px'} : '')]"
                             class="vsm--badge"
                             :class="item.badge.class"
                             v-bind="item.badge.attributes"
                     >{{ item.badge.text }}</component>
-                    <span class="vsm--title">{{ item.title }}</span>
+                    <span class="vsm--title">{{ title }}</span>
                     <div
-                            v-if="item.child"
+                            v-if="item.children"
                             class="vsm--arrow"
                             :class="[{'vsm--arrow_open' : show}, {'vsm--arrow_slot' : $slots['dropdown-icon']}]"
                     >
@@ -109,7 +87,7 @@
                 </template>
             </a>
         </template>
-        <template v-if="item.child">
+        <template v-if="item.children">
             <template v-if="(isCollapsed && !isFirstLevel) || !isCollapsed">
                 <transition
                         name="expand"
@@ -122,7 +100,7 @@
                             class="vsm--dropdown"
                     >
                         <listItem
-                                :items="item.child"
+                                :items="item.children"
                                 :level="level+1"
                                 :show-child="showChild"
                                 :rtl="rtl"
@@ -141,45 +119,45 @@
 </template>
 
 <script>
-    import ListItem from './listItem.vue'
-    import { itemMixin, animationMixin } from './mixin'
-    export default {
-        components: {
-            ListItem
-        },
-        mixins: [itemMixin, animationMixin],
-        props: {
-            item: {
-                type: Object,
-                required: true
-            },
-            level: {
-                type: Number,
-                default: 1
-            },
-            isCollapsed: {
-                type: Boolean
-            },
-            mobileItem: {
-                type: Boolean,
-                default: false
-            },
-            activeShow: {
-                type: Number,
-                default: null
-            },
-            showChild: {
-                type: Boolean,
-                default: false
-            },
-            showOneChild: {
-                type: Boolean,
-                default: false
-            },
-            rtl: {
-                type: Boolean,
-                default: false
-            }
-        }
-    }
+import { itemMixin, animationMixin } from './mixin'
+
+export default {
+	components: {
+		ListItem: () => import('./listItem.vue')
+	},
+	mixins: [itemMixin, animationMixin],
+	props: {
+		item: {
+			type: Object,
+			required: true
+		},
+		level: {
+			type: Number,
+			default: 1
+		},
+		isCollapsed: {
+			type: Boolean
+		},
+		mobileItem: {
+			type: Boolean,
+			default: false
+		},
+		activeShow: {
+			type: Number,
+			default: null
+		},
+		showChild: {
+			type: Boolean,
+			default: false
+		},
+		showOneChild: {
+			type: Boolean,
+			default: false
+		},
+		rtl: {
+			type: Boolean,
+			default: false
+		}
+	}
+}
 </script>

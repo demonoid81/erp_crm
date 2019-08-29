@@ -1,7 +1,7 @@
 package main
 
 import (
-	"erp_crm/api/server"
+	"github.com/demonoid81/erp_crm/api/server"
 	"math/rand"
 	"time"
 )

@@ -2,46 +2,45 @@ package resolvers
 
 import (
 	"context"
-	"erp_crm/api/generated"
-	"erp_crm/api/storages"
+	"github.com/demonoid81/erp_crm/api/generated"
+	"github.com/demonoid81/erp_crm/api/person"
+	"github.com/demonoid81/erp_crm/api/storages"
 
 	"github.com/99designs/gqlgen/graphql"
 )
 
 func RootResolvers(redisClient *storages.RedisClient, dgraphClient *storages.DgraphClient) generated.Config {
+	personResolver := person.New(redisClient, dgraphClient)
+
 	c := generated.Config{
-		Resolvers: &Resolve{
-			redisClient:  redisClient,
-			dgraphClient: dgraphClient,
+		Resolvers: &Resolver{
+			person: personResolver,
 		},
 	}
 	c.Directives.Auth = func(ctx context.Context, obj interface{}, next graphql.Resolver) (res interface{}, err error) {
-
 		return nil, nil
 	}
 	return c
-
 }
 
-type Resolve struct {
-	redisClient  *storages.RedisClient
-	dgraphClient *storages.DgraphClient
+type Resolver struct {
+	person		 *person.PersonsResolver
 }
 
-func (r *Resolve) Mutation() generated.MutationResolver {
+func (r *Resolver) Mutation() generated.MutationResolver {
 	return &mutationResolver{r}
 }
 
-func (r *Resolve) Query() generated.QueryResolver {
+func (r *Resolver) Query() generated.QueryResolver {
 	return &queryResolve{r}
 }
 
-func (r *Resolve) Subscription() generated.SubscriptionResolver {
+func (r *Resolver) Subscription() generated.SubscriptionResolver {
 	return &subscriptionResolver{r}
 }
 
-type queryResolve struct{ *Resolve }
+type queryResolve struct{ *Resolver }
 
-type mutationResolver struct{ *Resolve }
+type mutationResolver struct{ *Resolver }
 
-type subscriptionResolver struct{ *Resolve }
+type subscriptionResolver struct{ *Resolver }

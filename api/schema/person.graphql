@@ -8,13 +8,13 @@ type Person {
     token: String!
 }
 
-type identifiedPerson {
+type IdentifiedPerson {
     identified: Boolean!
     hasPassword: Boolean!
     authKey: String! # Храним в редисе одну минуту
 }
 
-input reqAuthPerson {
+input ReqAuthPerson {
     authKey: String
     key: String
     password: String
@@ -23,15 +23,15 @@ input reqAuthPerson {
 # при идентификации выдается временый ключ его срок действия 1 минута
 # если не получаем дальнейших данных, то придеться идентифицироваться сначала
 type Query {
-    identifyPersonByPhone(phone: String!): identifiedPerson
-    identifyPersonByName(name: String!): identifiedPerson
-    authPerson(params: reqAuthPerson): Person @auth
+    identifyPersonByPhone(phone: String!): IdentifiedPerson
+    identifyPersonByName(name: String!): IdentifiedPerson
+    authPerson(params: ReqAuthPerson): Person @auth
 }
 
 type Mutation {
-    updatePerson(params: reqAuthPerson): Person
+    updatePerson(params: ReqAuthPerson): Person
 }
 
 type Subscription {
-    updatePerson : Person!
+    eventUpdatePerson : Person!
 }

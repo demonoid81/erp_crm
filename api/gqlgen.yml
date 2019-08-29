@@ -20,7 +20,11 @@ resolver:
 
 models:
   Person:
-    model: "/home/mint/src/erp_crm/api/person/person.Person"
+    model: "github.com/demonoid81/erp_crm/api/person.Person"
+  IdentifiedPerson:
+    model: "github.com/demonoid81/erp_crm/api/person.IdentifiedPerson"
+  ReqAuthPerson:
+    model: "github.com/demonoid81/erp_crm/api/person.ReqAuthPerson"
 
 struct_tag: json
 autobind: []

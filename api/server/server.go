@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"erp_crm/api/generated"
-	"erp_crm/api/resolvers"
-	"erp_crm/api/storages"
+	"github.com/demonoid81/erp_crm/api/generated"
+	"github.com/demonoid81/erp_crm/api/resolvers"
+	"github.com/demonoid81/erp_crm/api/storages"
 
 	"github.com/99designs/gqlgen/handler"
 	"github.com/go-redis/redis"

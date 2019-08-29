@@ -15,11 +15,11 @@
 				</div>
 			</template>
 		</sidebar-menu>
-
-
 		<div class="main-content">
-			<tabs-nav class="main-content tag-nav-wrapper"/>
-			<router-view/>
+			<tabs-nav class="main-content-tag-nav-wrapper"/>
+			<div class="main-content-page-wrapper">
+				<router-view/>
+			</div>
 		</div>
 		<functional-menu/>
 	</div>
@@ -31,12 +31,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import FunctionalMenu from '@C/functionalMenu/functionalMenu'
 
 export default {
 	name: 'main-form',
 	components: {
-		FunctionalMenu,
+		FunctionalMenu: () => import('@C/functionalMenu'),
 		TabsNav: () => import('../tabsNav'),
 		SidebarMenu: () => import('../sidebarMenu')
 	},
@@ -51,7 +50,8 @@ export default {
 			this.collapsed = collapsed
 		},
 		onItemClick(event, item) {
-			console.log('onItemClick')
+			console.log('onItemClick', item)
+			this.$router.push({ name: item.name })
 			// console.log(event)
 			// console.log(item)
 		}
@@ -72,13 +72,21 @@ export default {
 		width: 100%;
 		height: 100%;
 		&-content {
-			flex-grow: 1;
-			.tag-nav-wrapper{
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			&-tag-nav-wrapper{
 				padding: 0;
-				height: 41px;
+				flex-grow: 0;
+				height: 37px;
+			}
+			&-page-wrapper {
+				padding: 10px;
+				flex-grow: 1;
 			}
 		}
 	}
+
 	.menu {
 		position: relative;
 		display: block;

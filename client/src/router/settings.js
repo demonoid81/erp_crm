@@ -1,10 +1,10 @@
-import MainForm from '@C/mainForm'
+import components from '@/router/components'
 
 export default {
 	path: '/',
 	name: '_settings',
 	redirect: '/settings',
-	component: MainForm,
+	component: components['MainForm'],
 	meta: {
 		notCache: true,
 		title: 'Настройки',
@@ -19,7 +19,7 @@ export default {
 				notCache: true,
 				icon: 'fa fa-download'
 			},
-			component: () => import('@P/dashboard')
+			component: components.Dashboard
 		}
 	]
 }

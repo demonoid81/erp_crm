@@ -1,10 +1,10 @@
-import MainForm from '@C/mainForm'
+import components from '@/router/components'
 
 export default {
-	path: '/',
+	path: '/configs',
 	name: '_configs',
 	redirect: '/configs',
-	component: MainForm,
+	component: components.MainForm,
 	meta: {
 		title: 'Конфигурация',
 		notCache: true,
@@ -12,14 +12,14 @@ export default {
 	},
 	children: [
 		{
-			path: '/',
-			name: 'configs',
+			path: 'role-configurator',
+			name: 'role-configurator',
 			meta: {
-				title: 'Конфигурация',
+				title: 'Конфигуратор ролей',
 				notCache: true,
-				icon: 'fa fa-download'
+				icon: 'fa fa-users-cog'
 			},
-			component: () => import('@P/dashboard')
+			component: components.RoleEditor
 		}
 	]
 }

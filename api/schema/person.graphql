@@ -1,15 +1,15 @@
 directive @auth on FIELD_DEFINITION
 
-type person {
+type Person {
     uid: ID!
     name: String!
     country: String! # Ссылка на страну
     phone: String!
-    token: String! 
+    token: String!
 }
 
 type identifiedPerson {
-    idented: Boolean!
+    identified: Boolean!
     hasPassword: Boolean!
     authKey: String! # Храним в редисе одну минуту
 }
@@ -25,13 +25,13 @@ input reqAuthPerson {
 type Query {
     identifyPersonByPhone(phone: String!): identifiedPerson
     identifyPersonByName(name: String!): identifiedPerson
-    authPerson(params: reqAuthPerson): person @auth
+    authPerson(params: reqAuthPerson): Person @auth
 }
 
 type Mutation {
-    updatePerson(params: reqAuthPerson): person
+    updatePerson(params: reqAuthPerson): Person
 }
 
 type Subscription {
-    updatePerson : person!
+    updatePerson : Person!
 }

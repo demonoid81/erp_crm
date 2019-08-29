@@ -36,12 +36,12 @@
             <div class="vsm--dropdown"
                  :style="[{'position' : 'absolute'}, {'top' : `${mobileItemHeight}px`}, {'left' : rtl ? '0px': sidebarWidth}, {'right' : rtl ? sidebarWidth: '0px'}, {'max-height' : `calc(${parentHeight} - ${mobileItemPos + mobileItemHeight}px - ${parentOffset}px)`}, {'overflow-y' : 'auto'}]">
                 <transition name="expand" @enter="expandEnter" @afterEnter="expandAfterEnter" @beforeLeave="expandBeforeLeave">
-                    <listItem v-if="mobileItem && mobileItem.children" :items="mobileItem.children"
+                    <list-item v-if="mobileItem && mobileItem.children" :items="mobileItem.children"
                             :show-child="showChild"
                             :rtl="rtl"
                             :is-collapsed="isCollapsed">
                         <slot slot="dropdown-icon" name="dropdown-icon"/>
-                    </listItem>
+                    </list-item>
                 </transition>
             </div>
         </div>

@@ -41,9 +41,9 @@ func RandomString(n int) string {
 }
 
 type Claims struct {
-	Paiload     string `json:"paiload"`
-	Idented     bool   `json:idented`
-	HasPassword bool   `json:hasPassword`
+	Payload     string `json:"payload"`
+	Identified   bool   `json:"identified"`
+	HasPassword bool   `json:"hasPassword"`
 	jwt.StandardClaims
 }
 
@@ -111,7 +111,7 @@ func (r *queryResolve) IdentifyPersonByPhone(ctx context.Context, phone string) 
 	}
 	fmt.Println(resp) // заглушка
 	result := &models.IdentifiedPerson{
-		Idented:     false,
+		Identified: false,
 		HasPassword: false,
 		AuthKey:     tokenString,
 	}

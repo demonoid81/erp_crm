@@ -14,6 +14,8 @@ import App from './app.vue'
 import config from '../config'
 import { createUploadLink, customFetch } from './libs/upload-client'
 import ProgressBar from './components/progressBar'
+import Modal from './components/modal'
+import PrettyCheckbox from './components/prettyCheckbox'
 
 Vue.prototype.$config = config
 
@@ -88,6 +90,8 @@ export const apolloClient = new ApolloClient({
 })
 
 Vue.use(ProgressBar, progressBarOptions)
+Vue.use(Modal, { dialog: true, dynamic: true, injectModalsContainer: true })
+Vue.use(PrettyCheckbox)
 Vue.use(VueApollo)
 
 const apolloProvider = new VueApollo({

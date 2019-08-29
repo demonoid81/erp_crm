@@ -2,6 +2,8 @@ import dashboard from './dashboard'
 import configs from './configs'
 import settings from './settings'
 
+import components from '@/router/components'
+
 export default [
 	{
 		path: '/login',
@@ -17,6 +19,9 @@ export default [
 	settings,
 	{
 		path: '*',
-		redirect: '/errors'
+		redirect: '/errors',
+		meta: {
+			hideInMenu: true
+		}
 	}
 ]

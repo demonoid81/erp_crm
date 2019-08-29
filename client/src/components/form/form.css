@@ -1,0 +1,67 @@
+.form .form-item-label {
+  text-align: right;
+  vertical-align: middle;
+  float: left;
+  font-size: 12px;
+  color: black;
+  line-height: 1;
+  padding: 10px 12px 10px 0;
+  box-sizing: border-box;
+}
+.form-label-left .form-item-label {
+  text-align: left;
+}
+.form-label-top .form-item-label {
+  float: none;
+  display: inline-block;
+  padding: 0 0 10px 0;
+}
+.form-inline .form-item {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: top;
+}
+.form-item {
+  margin-bottom: 5px;
+  vertical-align: top;
+  zoom: 1;
+}
+.form-item:before,
+.form-item:after {
+  content: "";
+  display: table;
+}
+.form-item:after {
+  clear: both;
+  visibility: hidden;
+  font-size: 0;
+  height: 0;
+}
+.form-item-content {
+  position: relative;
+  line-height: 32px;
+  font-size: 12px;
+}
+.form-item .form-item {
+  margin-bottom: 0;
+}
+.form-item .form-item .form-item-content {
+  margin-left: 0!important;
+}
+.form-item-error-tip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  line-height: 1;
+  padding-top: 6px;
+  color: #ff0000;
+}
+.form-item-required .form-item-label:before {
+  content: '*';
+  display: inline-block;
+  margin-right: 4px;
+  line-height: 1;
+  font-size: 12px;
+  color: #ff0000;
+}
+/*# sourceMappingURL=form.css.map */

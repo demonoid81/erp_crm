@@ -12,8 +12,6 @@ type DgraphClient struct {
 	*dgo.Dgraph
 }
 
-var dgraphClient *DgraphClient
-
 func GetDgraphClient() *DgraphClient {
 
 	dialOpts := append([]grpc.DialOption{}, grpc.WithInsecure())

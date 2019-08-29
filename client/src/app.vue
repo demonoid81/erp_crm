@@ -42,6 +42,7 @@ export default {
 
 <style lang="less" web>
 	@import './styles/all.css';
+	@import './components/prettyCheckbox/pretty-checkbox.css';
 	.size{
 		width: 100%;
 		height: 100%;

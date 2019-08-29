@@ -3,10 +3,10 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-const resolve = (dir) => path.join(__dirname, '..', dir)
+const resolve = dir => path.join(__dirname, '..', dir)
 
 const resolver = function (p, root = true) {
-    return path.resolve(root ? process.cwd() : __dirname, p)
+	return path.resolve(root ? process.cwd() : __dirname, p)
 }
 
 const createLintingRule = () => ({
@@ -33,20 +33,20 @@ module.exports = (platform, action) => ({
 			: config.dev.assetsPublicPath
 	},
 	resolve: {
-        extensions: [
-            `.${platform}.css`,
-            '.css',
-            `.${platform}.less`,
-            '.less',
-            `.${platform}.scss`,
-            '.scss',
-            `.${platform}.sass`,
-            '.sass',
-            `.${platform}.js`,
-            '.js',
-            '.vue',
-            '.json'
-        ],
+		extensions: [
+			`.${platform}.css`,
+			'.css',
+			`.${platform}.less`,
+			'.less',
+			`.${platform}.scss`,
+			'.scss',
+			`.${platform}.sass`,
+			'.sass',
+			`.${platform}.js`,
+			'.js',
+			'.vue',
+			'.json'
+		],
 		alias: {
 			'@': resolve('src'),
 			'@C': resolve('src/components'),
@@ -57,20 +57,20 @@ module.exports = (platform, action) => ({
 		rules: [
 			// ...(config.dev.useEslint ? [createLintingRule()] : []),
 			{
-                test: /\.vue$/,
-                loaders: [{
-                    loader: 'vue-loader',
+				test: /\.vue$/,
+				loaders: [{
+					loader: 'vue-loader',
 				    options: vueLoaderConfig
-                },{
-                    loader: resolver('./loader?vue', false)
-                }]
+				}, {
+					loader: resolver('./loader?vue', false)
+				}]
 			},
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loaders: [{
 					loader: 'babel-loader'
-				},{
+				}, {
 					loader: resolver('./loader', false)
 				}]
 			},
@@ -81,7 +81,7 @@ module.exports = (platform, action) => ({
 					limit: 10000,
 					name: utils.assetsPath('img/[name].[hash:7].[ext]')
 				}
-            },
+			},
 			{
 				test: /\.(mp4|webm|ogg|mp3|wav|flac|aac|svg)(\?.*)?$/,
 				loader: 'url-loader',

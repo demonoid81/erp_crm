@@ -8,15 +8,19 @@ schema:
 exec:
   filename: generated/exec.go
   package: generated
+
 model:
-  filename: models/root.go
+  filename: models/models.go
   package: models
+
 resolver:
   filename: resolvers/resolver.go # where to write them
   type: Resolve
   package: resolver
+
 models:
   Person:
-    model: person.Person
-struct_tag: json  
+    model: "/home/mint/src/erp_crm/api/person/person.Person"
+
+struct_tag: json
 autobind: []

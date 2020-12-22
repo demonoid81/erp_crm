@@ -74,7 +74,7 @@
     "nativescript-vue-externals": "^0.2.0",
     "nativescript-vue-target": "^0.1.0",
     "node-html-parser": "^1.1.16",
-    "node-notifier": "^5.4.1",
+    "node-notifier": "^8.0.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "semver": "^6.3.0",
     "shelljs": "^0.8.3",
